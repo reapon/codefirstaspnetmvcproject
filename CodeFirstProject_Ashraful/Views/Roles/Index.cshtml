@@ -1,0 +1,94 @@
+﻿
+<div class="panel-heading">
+    <h1 style="text-align:center">Welcome To Role Management</h1>
+</div>
+<div class="panel-body">
+
+    <div class="row">
+        <div class="col-md-4">
+            @Html.ActionLink("Create Role", "Create", "Roles", new { @class="btn btn-success"})
+        </div>
+
+        <div class="col-md-4">
+            @Html.ActionLink("Role Assign To User", "RoleAddToUser", "Roles", new { @class="btn btn-info"})
+        </div>
+
+
+        <div class="col-md-4">
+            @Html.ActionLink("Role Remove From User", "DeleteRoleForUser", "Roles", new { @class="btn btn-warning"})
+        </div>
+
+    </div>
+
+    <br />
+    <table class="table table-bordered table-hover col-sm-6 col-lg-6 col-md-6 ">
+        <tr>
+            <th>
+                Role Name
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+        <tr>
+            <th></th><th></th>
+        </tr>
+
+        @foreach (var role in ViewBag.Roles)
+        {
+            <tr>
+                <td class="col-sm-1 col-lg-5 col-md-3">
+                    <strong>@role.Text </strong>
+                </td>
+                <td class="col-sm-1 col-lg-1 col-md-2">
+                    <span onclick="return confirm('Are you sure to delete?')">
+                        <a href="/Roles/Delete?RoleName=@role.Text" class="delLink" style="color:red;">Delete</a>
+                    </span>
+
+                </td>
+            </tr>
+        }
+    </table>
+
+    <br />
+    <hr />
+    <hr />
+
+
+
+    <hr />
+    <div>
+        <div>
+            <div>
+                <h2>See User Roles</h2>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("GetRoles", "Roles"))
+                {
+                    @Html.AntiForgeryToken()
+                    <p>
+                        User Name: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select ...")
+                        <input type="submit" value="User Role" class="btn btn-info" />
+                    </p>
+                }
+
+                @if (ViewBag.RolesForThisUser != null)
+                {
+                    <div class="">
+                        <strong>Roles of this user </strong>
+                        <ol>
+                            @foreach (string s in ViewBag.RolesForThisUser)
+                            {
+                                <li>@s</li>
+                            }
+                        </ol>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+

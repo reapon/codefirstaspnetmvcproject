@@ -1,0 +1,73 @@
+﻿
+@model PagedList.IPagedList<CodeFirstProject_Ashraful.Models.Supplier>
+
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find By Supplier Name: @Html.TextBox("searchString")
+        <input class="btn btn-success" type="submit" value="Search" />
+    </p>
+}
+
+
+<table class="table table-bordered table-responsive">
+    <tr>
+        <th>
+            @Html.ActionLink("SupplierName", "Index", new { sortOrder = ViewBag.NameSortParam })
+
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Birth Date
+        </th>
+        <th>
+            Image
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                <img src="@Url.Content(item.ImagePath)" height="100" width="80" />
+
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SupplierID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SupplierID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<br />
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+   new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }
+   ))

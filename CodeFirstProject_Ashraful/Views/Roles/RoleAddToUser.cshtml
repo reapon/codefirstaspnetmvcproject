@@ -1,0 +1,23 @@
+﻿
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Add a Role to a User</h4>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("RoleAddToUser", "Roles"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <p>User Name: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select ...")</p>
+            <p>Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")</p>
+            <p><input type="submit" value="Save" class="btn btn-success" /></p>
+
+        }
+    </div> <!-- End Panel Body-->
+</div> <!-- End Panel -->
+
+<div>
+    @Html.ActionLink("Back", "Index", "Roles")
+</div>

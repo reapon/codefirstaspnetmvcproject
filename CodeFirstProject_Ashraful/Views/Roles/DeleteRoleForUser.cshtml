@@ -1,0 +1,22 @@
+﻿<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h4>Remove Role from User</h4>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("DeleteRoleForUser", "Roles"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <p>User Name: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select ...")</p>
+            <p>Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")</p>
+            <p><input type="submit" value="Delete this user from Role" class="btn btn-danger" /></p>
+
+        }
+    </div> <!-- End Panel Body-->
+</div> <!-- End Panel -->
+
+
+<div>
+    @Html.ActionLink("Back", "Index", "Roles")
+</div>

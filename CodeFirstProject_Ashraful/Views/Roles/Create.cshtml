@@ -1,0 +1,28 @@
+﻿
+
+
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h4>Create A New Role</h4>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("Create", "Roles", new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <div>
+                Role name: @Html.TextBox("RoleName")
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        }
+
+    </div> <!--End Panel Body-->
+</div> <!--End Panel-->
+
+
+
+<div>
+    @Html.ActionLink("Back", "Index", "Roles")
+</div>
+
